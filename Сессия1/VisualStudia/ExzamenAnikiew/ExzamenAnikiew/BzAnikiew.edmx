@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище BdAnikiewModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="NomerKategorii">
+          <Key>
+            <PropertyRef Name="NomerKategorii" />
+          </Key>
+          <Property Name="NomerKategorii" Type="int" Nullable="false" />
+          <Property Name="Kategoria" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="NomerPostavshika">
+          <Key>
+            <PropertyRef Name="NomerPostavshika" />
+          </Key>
+          <Property Name="NomerPostavshika" Type="int" Nullable="false" />
+          <Property Name="Postavshik" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6013: Первичный ключ в таблице или представлении "BdAnikiew.dbo.Postavki" не определен, его не удалось вывести. Эта таблица или представление исключены. Чтобы использовать сущность, необходимо проверить схему, добавить правильные ключи и раскомментировать ее.
+        <EntityType Name="Postavki">
+          <Property Name="Razmer_max_skidki" Type="int" />
+          <Property Name="Proizvoditel" Type="nvarchar" MaxLength="50" />
+          <Property Name="Postavchic" Type="int" />
+          <Property Name="KategoriaTovara" Type="int" />
+          <Property Name="DeustvyuhaiSkidka" Type="int" />
+          <Property Name="Kol_sklad" Type="int" />
+          <Property Name="Opisanie" Type="nvarchar" MaxLength="250" />
+          <Property Name="Izobragenie" Type="nvarchar" MaxLength="50" />
+        </EntityType>-->
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Nomer" />
+          </Key>
+          <Property Name="Nomer" Type="int" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Nomer" />
+          </Key>
+          <Property Name="Nomer" Type="int" Nullable="false" />
+          <Property Name="Familia" Type="nvarchar" MaxLength="50" />
+          <Property Name="ImuOtchestvo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" />
+          <Property Name="Parol" Type="nvarchar" MaxLength="50" />
+          <Property Name="Roli" Type="int" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+ошибка 6004: Невозможно найти таблицу "BdAnikiew.dbo.Postavki", на которую ссылается связь.
+        <Association Name="FK_Postavka_NomerKategorii" />-->
+        <!--Ошибки, обнаруженные при создании:
+ошибка 6004: Невозможно найти таблицу "BdAnikiew.dbo.Postavki", на которую ссылается связь.
+        <Association Name="FK_Postavka_NomerPostavshika" />-->
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Nomer" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Roli" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище BdAnikiewModelContainer">
+          <EntitySet Name="NomerKategorii" EntityType="Self.NomerKategorii" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NomerPostavshika" EntityType="Self.NomerPostavshika" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BdAnikiewModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BdAnikiewEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="NomerKategorii" EntityType="BdAnikiewModel.NomerKategorii" />
+          <EntitySet Name="NomerPostavshika" EntityType="BdAnikiewModel.NomerPostavshika" />
+          <EntitySet Name="Role" EntityType="BdAnikiewModel.Role" />
+          <EntitySet Name="User" EntityType="BdAnikiewModel.User" />
+          <AssociationSet Name="FK_User_Role" Association="BdAnikiewModel.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="NomerKategorii">
+          <Key>
+            <PropertyRef Name="NomerKategorii1" />
+          </Key>
+          <Property Name="NomerKategorii1" Type="Int32" Nullable="false" />
+          <Property Name="Kategoria" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="NomerPostavshika">
+          <Key>
+            <PropertyRef Name="NomerPostavshika1" />
+          </Key>
+          <Property Name="NomerPostavshika1" Type="Int32" Nullable="false" />
+          <Property Name="Postavshik" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Nomer" />
+          </Key>
+          <Property Name="Nomer" Type="Int32" Nullable="false" />
+          <Property Name="Role1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="BdAnikiewModel.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Nomer" />
+          </Key>
+          <Property Name="Nomer" Type="Int32" Nullable="false" />
+          <Property Name="Familia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ImuOtchestvo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Parol" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Roli" Type="Int32" />
+          <NavigationProperty Name="Role" Relationship="BdAnikiewModel.FK_User_Role" FromRole="User" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_User_Role">
+          <End Type="BdAnikiewModel.Role" Role="Role" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BdAnikiewModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Nomer" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Roli" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище BdAnikiewModelContainer" CdmEntityContainer="BdAnikiewEntities">
+          <EntitySetMapping Name="NomerKategorii">
+            <EntityTypeMapping TypeName="BdAnikiewModel.NomerKategorii">
+              <MappingFragment StoreEntitySet="NomerKategorii">
+                <ScalarProperty Name="Kategoria" ColumnName="Kategoria" />
+                <ScalarProperty Name="NomerKategorii1" ColumnName="NomerKategorii" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NomerPostavshika">
+            <EntityTypeMapping TypeName="BdAnikiewModel.NomerPostavshika">
+              <MappingFragment StoreEntitySet="NomerPostavshika">
+                <ScalarProperty Name="Postavshik" ColumnName="Postavshik" />
+                <ScalarProperty Name="NomerPostavshika1" ColumnName="NomerPostavshika" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="BdAnikiewModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Role1" ColumnName="Role" />
+                <ScalarProperty Name="Nomer" ColumnName="Nomer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="BdAnikiewModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Roli" ColumnName="Roli" />
+                <ScalarProperty Name="Parol" ColumnName="Parol" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="ImuOtchestvo" ColumnName="ImuOtchestvo" />
+                <ScalarProperty Name="Familia" ColumnName="Familia" />
+                <ScalarProperty Name="Nomer" ColumnName="Nomer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
